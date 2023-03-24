@@ -3,6 +3,12 @@ import Background from '../components/background/Background';
 import Navbar from '../components/Navbar';
 
 const Instructions = () => {
+
+	const handleClick = () => {
+		console.log('inside click');
+		window.location.replace(`${window.location.origin}/quests`);
+	};
+
 	return (
 		<>
 			<Background />
@@ -94,7 +100,7 @@ const Instructions = () => {
 										<div className='col-xl-12'>
 											<button
 												className='btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter'
-												onClick="(function(){window.location.href='quests.html'})();"
+												onClick={handleClick}
 											>
 												<h4>LET THE HACKING BEGIN!</h4>
 											</button>

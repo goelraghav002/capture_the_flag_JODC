@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import Background from '../components/background/Background';
 import Navbar from '../components/Navbar';
 
+import { userInfo } from '../helpers/apiRequest';
+
 const Home = () => {
+
+	const [user, setUser] = useState(null);
+
+	const handleClick = () => {
+		console.log('inside click');
+		window.location.replace(`${window.location.href}about`);
+	};
+
+	useEffect(() => {
+		userInfo().then((data) => setUser(data.user));
+	}, []);
+
+	// console.log(user.name);
+
 	return (
 		<>
 			<Background />
@@ -19,13 +36,20 @@ const Home = () => {
 							</h1>
 						</div>
 					</div>
+					
 					<div className='row'>
 						<div className='col-xl-4'>
-							<p className='mt-5 text-grey text-spacey hackerFont lead'>
-								The quieter you become the more you are able to hear.
+						<p className='mt-5 text-grey text-spacey hackerFont lead'>
+								Hi, {user?.name}
+								<br /><br />
+								Your current score is: {user?.current_score}
+								<br />
 							</p>
-							<button className='btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter'>
-								<h4>Login</h4>
+							<button
+								onClick={handleClick}
+								className='btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter'
+							>
+								<h4>Continue</h4>
 							</button>
 						</div>
 					</div>

@@ -3,6 +3,12 @@ import Background from '../components/background/Background';
 import Navbar from '../components/Navbar';
 
 const About = () => {
+
+	const handleClick = () => {
+		console.log('inside click');
+		window.location.replace(`${window.location.origin}/instructions`);
+	};
+
 	return (
 		<>
 			<Background />
@@ -51,8 +57,8 @@ const About = () => {
 									<div className='row text-center pt-5'>
 										<div className='col-xl-12'>
 											<button
+												onClick={handleClick}
 												className='btn btn-outline-danger btn-shadow px-3my-2 ml-0 ml-sm-1 text-left typewriter'
-												onclick="(function(){window.location.href='login.html'})();"
 											>
 												<h4>LET IT RIP!</h4>
 											</button>

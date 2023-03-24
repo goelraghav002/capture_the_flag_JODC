@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
+import { login } from '../actions/auth.actions';
 import Background from '../components/background/Background';
 import Navbar from '../components/Navbar';
 
 const Login = () => {
+	const dispatch = useDispatch();
+	const auth = useSelector((state) => state.auth);
+
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	// console.log(email, password);
+
+	const userLogin = (e) => {
+		e.preventDefault();
+
+		const user = {
+			email,
+			password,
+		};
+
+		dispatch(login(user));
+	};
+
+	if (auth.authenticate) {
+		return <Navigate to={`/`} replace />;
+	}
+
 	return (
 		<>
 			<Background />
 			<Navbar />
 
 			<div className='jumbotron bg-transparent mb-0 pt-3 radius-0'>
+				<form onSubmit={userLogin}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-xl-8'>
@@ -25,7 +53,9 @@ const Login = () => {
 											type='text'
 											className='form-control'
 											id='team_name'
-											placeholder='Team name'
+											placeholder='Email'
+											value={email}
+											onChange={(e) => setEmail(e.target.value)}
 										/>
 									</div>
 									<div className='form-group'>
@@ -34,6 +64,8 @@ const Login = () => {
 											className='form-control'
 											id='password'
 											placeholder='Password'
+											value={password}
+											onChange={(e) => setPassword(e.target.value)}
 										/>
 										<small id='passHelp' className='form-text text-muted'>
 											Make sure nobody's behind you
@@ -45,9 +77,9 @@ const Login = () => {
 					</div>
 					<div className='row'>
 						<div className='col-xl-8'>
-							<button
+								<button
+									type='submit'
 								className='btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter'
-								onclick="window.location.href='instructions.html';"
 							>
 								<h4>Login</h4>
 							</button>
@@ -57,6 +89,7 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
+				</form>
 			</div>
 		</>
 	);
