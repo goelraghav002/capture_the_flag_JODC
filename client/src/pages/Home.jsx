@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import Background from '../components/background/Background';
 import Navbar from '../components/Navbar';
@@ -7,6 +8,7 @@ import { userInfo } from '../helpers/apiRequest';
 
 const Home = () => {
 
+	const auth = useSelector((state) => state.auth);
 	const [user, setUser] = useState(null);
 
 	const handleClick = () => {
@@ -15,7 +17,9 @@ const Home = () => {
 	};
 
 	useEffect(() => {
-		userInfo().then((data) => setUser(data.user));
+		if (auth.authenticate){
+			userInfo().then((data) => setUser(data.user));
+		}
 	}, []);
 
 	// console.log(user.name);

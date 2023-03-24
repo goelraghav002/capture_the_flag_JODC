@@ -17,7 +17,9 @@ const Navbar = () => {
     const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		userInfo().then((data) => setUser(data.user));
+		if (auth.authenticate){
+			userInfo().then((data) => setUser(data.user));
+		}
 	}, []);
 
 	return (
