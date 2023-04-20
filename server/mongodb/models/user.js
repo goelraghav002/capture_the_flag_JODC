@@ -21,6 +21,7 @@ const User = new mongoose.Schema({
 		trim: true,
 		required: true,
 		min: 6,
+		//hello
 		max: 40,
     },
     total_score: {
